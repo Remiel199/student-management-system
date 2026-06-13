@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Student List</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">  
+    <style>
+
+body{
+    background: linear-gradient(
+        135deg,
+        #667eea,
+        #764ba2
+    );
+}
+
+.card{
+    border:none;
+    border-radius:15px;
+}
+
+</style>
+</head>
+
+<body class="bg-light">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="/">
+            🎓 Student Portal
+        </a>
+
+        <div>
+
+            <a href="/" class="btn btn-outline-light me-2">
+                Home
+            </a>
+
+            <a href="{% url 'read' %}" class="btn btn-outline-light">
+                Student List
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>    
+
+<div class="container mt-5">
+
+    <h1 class="text-center mb-4">
+        Student Management System
+    </h1>
+
+    <div class="text-end mb-3">
+
+        <a
+            href="{% url 'home' %}"
+            class="btn btn-success"
+        >
+            Add Student
+        </a>
+
+</div>
+<form method="GET" class="mb-4">
+
+    <div class="input-group">
+
+        <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Search Student..."
+        >
+
+        <button
+            class="btn btn-primary"
+            type="submit"
+        >
+            Search
+        </button>
+
+    </div>
+
+</form>
+
+<div class="card shadow mb-4">
+
+    <div class="card-body text-center">
+
+        <h3>Total Students</h3>
+
+        <h1 class="text-primary">
+            {{ total_students }}
+        </h1>
+
+    </div>
+
+</div>
+
+    <table class="table table-bordered table-striped shadow">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th>Name</th>
+                <th>Age</th>
+                <th>Course</th>
+                <th>Email</th>
+                <th>Update</th>
+                <th>Delete</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for student in students %}
+
+            <tr>
+
+                <td>{{ student.name }}</td>
+                <td>{{ student.age }}</td>
+                <td>{{ student.course }}</td>
+                <td>{{ student.email }}</td>
+
+                <td>
+
+                    <a
+                        href="{% url 'update' student.id %}"
+                        class="btn btn-warning btn-sm"
+                    >
+                        Update
+                    </a>
+
+                </td>
+
+                <td>
+
+                    <a href="{% url 'delete' student.id %}"
+                    class="btn btn-danger"
+                    onclick="return confirm('Are you sure you want to delete this student?')">
+                    Delete
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>
